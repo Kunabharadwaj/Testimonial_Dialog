@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-body: #cf7598;
+        --bg-header: linear-gradient(to right, #a44797, #8d62b2);
+        --bg-section: #fff;
+        --bg-el-1: #983c8d;
+        --clr-border-1: #e56fa8;
+        --clr-font-1: #787878;
+        --clr-font-2: #7e7fb7;
+        --clr-font-3: #ffeeff;
+        --clr-font-4: #e490ca;
+        --font: "Poppins", sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        font-family: var(--font);
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--bg-el-1);
+        border-radius: 30px;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: var(--bg-body);
+        display: grid;
+        place-items: center;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      button {
+        padding: 0;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+      }
+
+      main {
+        margin: 40px 0;
+        width: 1200px;
+      }
+
+      header {
+        padding: 20px 8px;
+        background: var(--bg-header);
+        border-bottom: 4px solid var(--clr-border-1);
+      }
+
+      .nav_list {
+        font-size: 18px;
+        display: flex;
+      }
+
+      .nav_item a {
+        display: block;
+        padding: 7px 24px;
+        color: var(--clr-font-4);
+        border-radius: 30px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        transition: color 0.5s;
+      }
+
+      .nav_item a:focus-visible {
+        outline: 3px solid #fff;
+      }
+
+      .nav_item a::after {
+        content: "";
+        background: var(--bg-el-1);
+        border-radius: inherit;
+        position: absolute;
+        inset: 0;
+        transform: translateY(105%);
+        transition: transform 0.5s;
+        z-index: -1;
+      }
+
+      .nav_item.active a,
+      .nav_item a:hover {
+        color: var(--clr-font-3);
+      }
+
+      .nav_item.active a::after,
+      .nav_item a:hover::after {
+        transform: translateY(0);
+      }
+
+      .hamburger_btn,
+      .close_nav_btn {
+        width: 40px;
+        aspect-ratio: 1;
+        display: none;
+      }
+
+      .hamburger_btn svg,
+      .close_nav_btn svg {
+        width: 35px;
+      }
+
+      section {
+        padding: 65px 45px 70px;
+        background: var(--bg-section);
+        border-bottom: 4px solid var(--clr-border-1);
+      }
+
+      .testimonials_list {
+        height: 475px;
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 340px);
+        grid-gap: 30px;
+        justify-content: center;
+      }
+
+      .testimonial {
+        padding-top: 35px;
+        min-height: 220px;
+        background: url("https://i.ibb.co/XVwF1bf/quote-bg.png") no-repeat;
+        background-size: 60px;
+        background-position: 5% 5%;
+        color: var(--clr-font-1);
+        border: 1px solid #cccddb;
+        text-align: center;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: border-color 0.4s, color 0.5s;
+        z-index: 1;
+        overflow: hidden;
+      }
+
+      .testimonial::before,
+      .testimonial::after {
+        content: "";
+        background: var(--bg-el-1);
+        width: 10px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        position: absolute;
+        transition: scale 0.8s;
+        z-index: -1;
+      }
+
+      .testimonial::before {
+        top: -10px;
+        left: -10px;
+      }
+
+      .testimonial::after {
+        bottom: -10px;
+        right: -10px;
+      }
+
+      .testimonial:hover {
+        color: var(--clr-font-3);
+        border-color: transparent;
+      }
+
+      .testimonial:hover::before,
+      .testimonial:hover::after {
+        scale: 50;
+      }
+
+      .rating_stars_container {
+        display: flex;
+      }
+
+      .rating_stars_container img {
+        width: 16px;
+        aspect-ratio: 1;
+      }
+
+      .testimonial_username {
+        margin-top: 10px;
+        color: var(--clr-font-2);
+        font-weight: 600;
+        transition: color 0.5s;
+      }
+
+      .testimonial:hover .testimonial_username {
+        color: var(--clr-font-3);
+      }
+
+      blockquote {
+        width: 85%;
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      blockquote p {
+        position: relative;
+      }
+
+      blockquote p::before,
+      blockquote p::after {
+        content: '"';
+        min-width: 50px;
+      }
+
+      blockquote p::before {
+        margin-right: 5px;
+      }
+
+      blockquote p::after {
+        margin-left: 5px;
+      }
+
+      .project_link {
+        color: var(--clr-font-2);
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        position: absolute;
+        bottom: 15px;
+        right: 15px;
+        transition: color 0.5s;
+      }
+
+      .project_link svg {
+        width: 22px;
+        aspect-ratio: 1;
+        transition: fill 0.5s;
+      }
+
+      .testimonial:hover .project_link {
+        color: var(--clr-font-3);
+      }
+
+      .testimonial:hover .project_link svg {
+        fill: var(--clr-font-3);
+      }
+
+      .more_testimonials_btn {
+        display: block;
+        margin: 70px auto 0;
+        font-size: 16px;
+        color: var(--clr-font-2);
+        text-align: center;
+      }
+
+      .testimonial_username:focus-visible,
+      .project_link:focus-visible,
+      .more_testimonials_btn:focus-visible {
+        outline: 3px solid var(--bg-el-1);
+        outline-offset: 2px;
+      }
+
+      @media (max-width: 1200px) {
+        main {
+          width: 90%;
+        }
+      }
+
+      @media (max-width: 690px) {
+        body {
+          display: block;
+        }
+
+        main {
+          margin: 0;
+          width: 100%;
+        }
+
+        header {
+          padding: 14px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 2;
+        }
+
+        nav {
+          width: 250px;
+          padding: 100px 30px 0;
+          background: var(--bg-header);
+          position: fixed;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          transform: translateX(-100%);
+          transition: transform 0.4s;
+        }
+
+        nav.show {
+          transform: translateX(0);
+        }
+
+        .nav_list {
+          flex-direction: column;
+          gap: 16px;
+        }
+
+        .hamburger_btn,
+        .close_nav_btn {
+          display: grid;
+          place-content: center;
+        }
+
+        .close_nav_btn {
+          position: absolute;
+          top: 20px;
+          right: 20px;
+        }
+
+        section {
+          padding: 120px 15px 40px;
+        }
+
+        .testimonials_list {
+          height: auto;
+          overflow-y: hidden;
+        }
+
+        .more_testimonials_btn {
+          margin-top: 50px;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .testimonials_list {
+          grid-template-columns: 100%;
+          grid-gap: 15px;
+        }
+
+        .testimonial {
+          padding-top: 15px;
+        }
+      }
+
+      dialog {
+        border: none !important;
+        height: 80dvh;
+        width: 80dvw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      dialog[open] {
+        -webkit-animation: show 1s ease normal;
+      }
+      dialog.hide {
+        -webkit-animation: hide 1s ease normal;
+      }
+      @-webkit-keyframes show {
+        from {
+          transform: translateY(-110%);
+        }
+        to {
+          transform: translateY(0%);
+        }
+      }
+      @-webkit-keyframes hide {
+        to {
+          transform: translateY(-110%);
+        }
+      }
+
+      dialog > button {
+        border: 1px solid;
+        border-radius: 20%;
+        padding: 10px;
+        background-color: #7e7fb7;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <button class="hamburger_btn">
+          <svg
+            fill="#fff"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            stroke="#fff"
+            stroke-width="0.336"
+          >
+            <path
+              d="M2,4A1,1,0,0,1,3,3H21a1,1,0,0,1,0,2H3A1,1,0,0,1,2,4Zm1,9H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Zm0,8H21a1,1,0,0,0,0-2H3a1,1,0,0,0,0,2Z"
+            ></path>
+          </svg>
+        </button>
+        <nav class="">
+          <button class="close_nav_btn">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20.7457 3.32851C20.3552 2.93798 19.722 2.93798 19.3315 3.32851L12.0371 10.6229L4.74275 3.32851C4.35223 2.93798 3.71906 2.93798 3.32854 3.32851C2.93801 3.71903 2.93801 4.3522 3.32854 4.74272L10.6229 12.0371L3.32856 19.3314C2.93803 19.722 2.93803 20.3551 3.32856 20.7457C3.71908 21.1362 4.35225 21.1362 4.74277 20.7457L12.0371 13.4513L19.3315 20.7457C19.722 21.1362 20.3552 21.1362 20.7457 20.7457C21.1362 20.3551 21.1362 19.722 20.7457 19.3315L13.4513 12.0371L20.7457 4.74272C21.1362 4.3522 21.1362 3.71903 20.7457 3.32851Z"
+                fill="#fff"
+              ></path>
+            </svg>
+          </button>
+          <ul class="nav_list">
+            <li class="nav_item"><a href="javascript:void(0)">Popular</a></li>
+            <li class="nav_item"><a href="javascript:void(0)">News</a></li>
+            <li class="nav_item active">
+              <a href="javascript:void(0)">Reviews</a>
+            </li>
+            <li class="nav_item">
+              <a href="javascript:void(0)">Multimedia</a>
+            </li>
+            <li class="nav_item"><a href="javascript:void(0)">Twitter</a></li>
+          </ul>
+        </nav>
+      </header>
+      <section>
+        <!-- Testimonial Tiles -->
+        <div class="testimonials_list">
+          <button
+            onclick="document.getElementById('modal1').showModal()"
+            class="testimonial"
+          >
+            <h2>Kamal</h2>
+            <div class="rating_stars_container">
+              <img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" />
+            </div>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            <a class="project_link" href="javascript:void(0)">
+              See project
+              <svg
+                fill="#7e7fb7"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="-20.48 -20.48 552.96 552.96"
+                xml:space="preserve"
+                stroke="#7e7fb7"
+                stroke-width="8.704"
+              >
+                <path
+                  d="M256,0C114.62,0,0,114.62,0,256s114.62,256,256,256s256-114.62,256-256S397.38,0,256,0z M256,486.4 C128.956,486.4,25.6,383.044,25.6,256S128.956,25.6,256,25.6S486.4,128.956,486.4,256S383.044,486.4,256,486.4z"
+                ></path>
+                <path
+                  d="M341.854,246.955l-128-128.009c-5.001-5.001-13.099-5.001-18.099,0c-5.001,5-5.001,13.099,0,18.099L314.701,256 L195.746,374.946c-5.001,5-5.001,13.099,0,18.099c2.5,2.509,5.777,3.755,9.054,3.755c3.277,0,6.554-1.246,9.054-3.746l128-128 C346.854,260.053,346.854,251.955,341.854,246.955z"
+                ></path>
+              </svg>
+            </a>
+          </button>
+          <button
+            onclick="document.getElementById('modal2').showModal()"
+            class="testimonial"
+          >
+            <h2>Kamal</h2>
+            <div class="rating_stars_container">
+              <img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" />
+            </div>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            <a class="project_link" href="javascript:void(0)">
+              See project
+              <svg
+                fill="#7e7fb7"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="-20.48 -20.48 552.96 552.96"
+                xml:space="preserve"
+                stroke="#7e7fb7"
+                stroke-width="8.704"
+              >
+                <path
+                  d="M256,0C114.62,0,0,114.62,0,256s114.62,256,256,256s256-114.62,256-256S397.38,0,256,0z M256,486.4 C128.956,486.4,25.6,383.044,25.6,256S128.956,25.6,256,25.6S486.4,128.956,486.4,256S383.044,486.4,256,486.4z"
+                ></path>
+                <path
+                  d="M341.854,246.955l-128-128.009c-5.001-5.001-13.099-5.001-18.099,0c-5.001,5-5.001,13.099,0,18.099L314.701,256 L195.746,374.946c-5.001,5-5.001,13.099,0,18.099c2.5,2.509,5.777,3.755,9.054,3.755c3.277,0,6.554-1.246,9.054-3.746l128-128 C346.854,260.053,346.854,251.955,341.854,246.955z"
+                ></path>
+              </svg>
+            </a>
+          </button>
+          <button
+            onclick="document.getElementById('modal3').showModal()"
+            class="testimonial"
+          >
+            <h2>Kamal</h2>
+            <div class="rating_stars_container">
+              <img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" />
+            </div>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            <a class="project_link" href="javascript:void(0)">
+              See project
+              <svg
+                fill="#7e7fb7"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="-20.48 -20.48 552.96 552.96"
+                xml:space="preserve"
+                stroke="#7e7fb7"
+                stroke-width="8.704"
+              >
+                <path
+                  d="M256,0C114.62,0,0,114.62,0,256s114.62,256,256,256s256-114.62,256-256S397.38,0,256,0z M256,486.4 C128.956,486.4,25.6,383.044,25.6,256S128.956,25.6,256,25.6S486.4,128.956,486.4,256S383.044,486.4,256,486.4z"
+                ></path>
+                <path
+                  d="M341.854,246.955l-128-128.009c-5.001-5.001-13.099-5.001-18.099,0c-5.001,5-5.001,13.099,0,18.099L314.701,256 L195.746,374.946c-5.001,5-5.001,13.099,0,18.099c2.5,2.509,5.777,3.755,9.054,3.755c3.277,0,6.554-1.246,9.054-3.746l128-128 C346.854,260.053,346.854,251.955,341.854,246.955z"
+                ></path>
+              </svg>
+            </a>
+          </button>
+          <button
+            onclick="document.getElementById('modal4').showModal()"
+            class="testimonial"
+          >
+            <h2>Kamal</h2>
+            <div class="rating_stars_container">
+              <img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" />
+            </div>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            <a class="project_link" href="javascript:void(0)">
+              See project
+              <svg
+                fill="#7e7fb7"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="-20.48 -20.48 552.96 552.96"
+                xml:space="preserve"
+                stroke="#7e7fb7"
+                stroke-width="8.704"
+              >
+                <path
+                  d="M256,0C114.62,0,0,114.62,0,256s114.62,256,256,256s256-114.62,256-256S397.38,0,256,0z M256,486.4 C128.956,486.4,25.6,383.044,25.6,256S128.956,25.6,256,25.6S486.4,128.956,486.4,256S383.044,486.4,256,486.4z"
+                ></path>
+                <path
+                  d="M341.854,246.955l-128-128.009c-5.001-5.001-13.099-5.001-18.099,0c-5.001,5-5.001,13.099,0,18.099L314.701,256 L195.746,374.946c-5.001,5-5.001,13.099,0,18.099c2.5,2.509,5.777,3.755,9.054,3.755c3.277,0,6.554-1.246,9.054-3.746l128-128 C346.854,260.053,346.854,251.955,341.854,246.955z"
+                ></path>
+              </svg>
+            </a>
+          </button>
+          <button
+            onclick="document.getElementById('modal5').showModal()"
+            class="testimonial"
+          >
+            <h2>Kamal</h2>
+            <div class="rating_stars_container">
+              <img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" />
+            </div>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            <a class="project_link" href="javascript:void(0)">
+              See project
+              <svg
+                fill="#7e7fb7"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="-20.48 -20.48 552.96 552.96"
+                xml:space="preserve"
+                stroke="#7e7fb7"
+                stroke-width="8.704"
+              >
+                <path
+                  d="M256,0C114.62,0,0,114.62,0,256s114.62,256,256,256s256-114.62,256-256S397.38,0,256,0z M256,486.4 C128.956,486.4,25.6,383.044,25.6,256S128.956,25.6,256,25.6S486.4,128.956,486.4,256S383.044,486.4,256,486.4z"
+                ></path>
+                <path
+                  d="M341.854,246.955l-128-128.009c-5.001-5.001-13.099-5.001-18.099,0c-5.001,5-5.001,13.099,0,18.099L314.701,256 L195.746,374.946c-5.001,5-5.001,13.099,0,18.099c2.5,2.509,5.777,3.755,9.054,3.755c3.277,0,6.554-1.246,9.054-3.746l128-128 C346.854,260.053,346.854,251.955,341.854,246.955z"
+                ></path>
+              </svg>
+            </a>
+          </button>
+          <button
+            onclick="document.getElementById('modal6').showModal()"
+            class="testimonial"
+          >
+            <h2>Kamal</h2>
+            <div class="rating_stars_container">
+              <img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+                src="https://i.ibb.co/L6WXvN8/star-full.png"
+                alt=""
+              /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" />
+            </div>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+            <a class="project_link" href="javascript:void(0)">
+              See project
+              <svg
+                fill="#7e7fb7"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                viewBox="-20.48 -20.48 552.96 552.96"
+                xml:space="preserve"
+                stroke="#7e7fb7"
+                stroke-width="8.704"
+              >
+                <path
+                  d="M256,0C114.62,0,0,114.62,0,256s114.62,256,256,256s256-114.62,256-256S397.38,0,256,0z M256,486.4 C128.956,486.4,25.6,383.044,25.6,256S128.956,25.6,256,25.6S486.4,128.956,486.4,256S383.044,486.4,256,486.4z"
+                ></path>
+                <path
+                  d="M341.854,246.955l-128-128.009c-5.001-5.001-13.099-5.001-18.099,0c-5.001,5-5.001,13.099,0,18.099L314.701,256 L195.746,374.946c-5.001,5-5.001,13.099,0,18.099c2.5,2.509,5.777,3.755,9.054,3.755c3.277,0,6.554-1.246,9.054-3.746l128-128 C346.854,260.053,346.854,251.955,341.854,246.955z"
+                ></path>
+              </svg>
+            </a>
+          </button>
+          <!-- Add more tiles as needed -->
+        </div>
+
+        <!-- Testimonial Modals -->
+        <dialog id="modal1">
+          <h2>Kamal</h2>
+          <div class="rating_stars_container">
+            <img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+              src="https://i.ibb.co/L6WXvN8/star-full.png"
+              alt=""
+            /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" /><img
+              src="https://i.ibb.co/L6WXvN8/star-full.png"
+              alt=""
+            /><img src="https://i.ibb.co/L6WXvN8/star-full.png" alt="" />
+          </div>
+          <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+          <button onclick="document.getElementById('modal1').close()">
+            Close
+          </button>
+        </dialog>
+
+        <dialog id="modal2">
+          <h2>Testimonial 2</h2>
+          <p>This is a detailed review for Testimonial 2.</p>
+          <button onclick="document.getElementById('modal2').close()">
+            Close
+          </button>
+        </dialog>
+
+        <dialog id="modal3">
+          <h2>Testimonial 3</h2>
+          <p>This is a detailed review for Testimonial 3.</p>
+          <button onclick="document.getElementById('modal3').close()">
+            Close
+          </button>
+        </dialog>
+
+        <dialog id="modal4">
+          <h2>Testimonial 4</h2>
+          <p>This is a detailed review for Testimonial 4.</p>
+          <button onclick="document.getElementById('modal4').close()">
+            Close
+          </button>
+        </dialog>
+
+        <dialog id="modal5">
+          <h2>Testimonial 5</h2>
+          <p>This is a detailed review for Testimonial 5.</p>
+          <button onclick="document.getElementById('modal5').close()">
+            Close
+          </button>
+        </dialog>
+
+        <dialog id="modal6">
+          <h2>Testimonial 2</h2>
+          <p>This is a detailed review for Testimonial 6.</p>
+          <button onclick="document.getElementById('modal6').close()">
+            Close
+          </button>
+        </dialog>
+      </section>
+    </main>
+
+    <!-- Add more modals as needed -->
+    <script src="index.js"></script>
+  </body>
+</html>

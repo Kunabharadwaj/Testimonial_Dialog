@@ -1,0 +1,358 @@
+:root {
+    --bg-body: #cf7598;
+    --bg-header: linear-gradient(to right, #a44797, #8d62b2);
+    --bg-section: #fff;
+    --bg-el-1: #983c8d;
+    --clr-border-1: #e56fa8;
+    --clr-font-1: #787878;
+    --clr-font-2: #7e7fb7;
+    --clr-font-3: #ffeeff;
+    --clr-font-4: #e490ca;
+    --font: 'Poppins', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    font-family: var(--font);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--bg-el-1);
+    border-radius: 30px;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg-body);
+    display: grid;
+    place-items: center;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+button {
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+main {
+    margin: 40px 0;
+    width: 1200px;
+}
+
+header {
+    padding: 20px 8px;
+    background: var(--bg-header);
+    border-bottom: 4px solid var(--clr-border-1);
+}
+
+.nav_list {
+    font-size: 18px;
+    display: flex;
+}
+
+.nav_item a {
+    display: block;
+    padding: 7px 24px;
+    color: var(--clr-font-4);
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    transition: color .5s;
+}
+
+.nav_item a:focus-visible {
+    outline: 3px solid #fff;
+}
+
+.nav_item a::after {
+    content: '';
+    background: var(--bg-el-1);
+    border-radius: inherit;
+    position: absolute;
+    inset: 0;
+    transform: translateY(105%);
+    transition: transform .5s;
+    z-index: -1;
+}
+
+.nav_item.active a,
+.nav_item a:hover {
+    color: var(--clr-font-3);
+}
+
+.nav_item.active a::after,
+.nav_item a:hover::after {
+    transform: translateY(0);
+}
+
+.hamburger_btn,
+.close_nav_btn {
+    width: 40px;
+    aspect-ratio: 1;
+    display: none;
+}
+
+.hamburger_btn svg,
+.close_nav_btn svg {
+    width: 35px;
+}
+
+section {
+    padding: 65px 45px 70px;
+    background: var(--bg-section);
+    border-bottom: 4px solid var(--clr-border-1);
+}
+
+.testimonials_list {
+    height: 475px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 340px);
+    grid-gap: 30px;
+    justify-content: center;
+}
+
+.testimonial {
+    padding-top: 35px;
+    min-height: 220px;
+    background: url('https://i.ibb.co/XVwF1bf/quote-bg.png') no-repeat;
+    background-size: 60px;
+    background-position: 5% 5%;
+    color: var(--clr-font-1);
+    border: 1px solid #cccddb;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: border-color .4s, color .5s;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.testimonial::before,
+.testimonial::after {
+    content: '';
+    background: var(--bg-el-1);
+    width: 10px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    position: absolute;
+    transition: scale .8s;
+    z-index: -1;
+}
+
+.testimonial::before {
+    top: -10px;
+    left: -10px;
+}
+
+.testimonial::after {
+    bottom: -10px;
+    right: -10px;
+}
+
+.testimonial:hover {
+    color: var(--clr-font-3);
+    border-color: transparent;
+}
+
+.testimonial:hover::before,
+.testimonial:hover::after {
+    scale: 50;
+}
+
+.rating_stars_container {
+    display: flex;
+}
+
+.rating_stars_container img {
+    width: 16px;
+    aspect-ratio: 1;
+}
+
+.testimonial_username {
+    margin-top: 10px;
+    color: var(--clr-font-2);
+    font-weight: 600;
+    transition: color .5s;
+}
+
+.testimonial:hover .testimonial_username {
+    color: var(--clr-font-3);
+}
+
+blockquote {
+    width: 85%;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+blockquote p {
+    position: relative;
+}
+
+blockquote p::before,
+blockquote p::after {
+    content: '"';
+    min-width: 50px;
+}
+
+blockquote p::before {
+    margin-right: 5px;
+}
+
+blockquote p::after {
+    margin-left: 5px;
+}
+
+.project_link {
+    color: var(--clr-font-2);
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    transition: color .5s;
+}
+
+.project_link svg {
+    width: 22px;
+    aspect-ratio: 1;
+    transition: fill .5s;
+}
+
+.testimonial:hover .project_link {
+    color: var(--clr-font-3);
+}
+
+.testimonial:hover .project_link svg {
+    fill: var(--clr-font-3);
+}
+
+.more_testimonials_btn {
+    display: block;
+    margin: 70px auto 0;
+    font-size: 16px;
+    color: var(--clr-font-2);
+    text-align: center;
+}
+
+.testimonial_username:focus-visible,
+.project_link:focus-visible,
+.more_testimonials_btn:focus-visible {
+    outline: 3px solid var(--bg-el-1);
+    outline-offset: 2px;
+}
+
+@media(max-width: 1200px) {
+    main {
+        width: 90%;
+    }
+}
+
+@media(max-width: 690px) {
+    body {
+        display: block;
+    }
+
+    main {
+        margin: 0;
+        width: 100%;
+    }
+
+    header {
+        padding: 14px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 2;
+    }
+
+    nav {
+        width: 250px;
+        padding: 100px 30px 0;
+        background: var(--bg-header);
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+        transition: transform .4s;
+    }
+
+    nav.show {
+        transform: translateX(0);
+    }
+
+    .nav_list {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .hamburger_btn,
+    .close_nav_btn {
+        display: grid;
+        place-content: center;
+    }
+
+    .close_nav_btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    section {
+        padding: 120px 15px 40px;
+    }
+
+    .testimonials_list {
+        height: auto;
+        overflow-y: hidden;
+    }
+
+    .more_testimonials_btn {
+        margin-top: 50px;
+    }
+}
+
+@media(max-width: 380px) {
+    .testimonials_list {
+        grid-template-columns: 100%;
+        grid-gap: 15px;
+    }
+
+    .testimonial {
+        padding-top: 15px;
+    }
+}
